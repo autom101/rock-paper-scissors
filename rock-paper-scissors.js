@@ -1,5 +1,6 @@
 const ROCKPAPERSCISSORS = ["ROCK", "PAPER", "SCISSORS"];
 
+
 function getComputerChoice() {
     //Return Rock, Paper, or Scissors randomly
     let computerNumber;
@@ -61,7 +62,11 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game () {
-
+    for(let i = 0; i < 5; i++) {
+        let userInput = prompt("Choose Rock, Paper, or Scissors.");
+        let computerInput = getComputerChoice();
+        console.log(playRound(userInput, computerInput));
+    }
 }
 
-console.log(playRound("Scissors", getComputerChoice()));
+game();

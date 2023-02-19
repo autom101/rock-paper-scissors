@@ -1,5 +1,6 @@
-const ROCKPAPERSCISSORS = ["ROCK", "PAPER", "SCISSORS"];
+"Use Strict"
 
+const ROCKPAPERSCISSORS = ["ROCK", "PAPER", "SCISSORS"];
 
 function getComputerChoice() {
     //Return Rock, Paper, or Scissors randomly
@@ -61,12 +62,71 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game () {
-    for(let i = 0; i < 5; i++) {
-        let userInput = prompt("Choose Rock, Paper, or Scissors.");
-        let computerInput = getComputerChoice();
-        console.log(playRound(userInput, computerInput));
+function score(playerSelection, computerSelection) {
+    playerSelection = playerSelection.toUpperCase();
+    computerSelection = computerSelection.toUpperCase();
+
+    switch (playerSelection) {
+        case "ROCK":
+            if (computerSelection === ROCKPAPERSCISSORS[0]) {
+                return `Draw`;
+            }
+            else if (computerSelection === ROCKPAPERSCISSORS[1]) {
+                return `Lose`;
+            }
+            else {
+                return `Win`;
+            }
+        case "PAPER":
+            if (computerSelection === ROCKPAPERSCISSORS[0]) {
+                return `Win`;
+            }
+            else if (computerSelection === ROCKPAPERSCISSORS[1]) {
+                return `Draw`;
+            }
+            else {
+                return `Lose`;
+            }
+        case "SCISSORS":
+            if (computerSelection === ROCKPAPERSCISSORS[0]) {
+                return `Lose`;
+            }
+            else if (computerSelection === ROCKPAPERSCISSORS[1]) {
+                return `Win`;
+            }
+            else {
+                return `Draw`;
+            }
+        default: 
+            break;
     }
 }
 
-game();
+function game() {
+    let userInput, computerInput, userScore = 0, computerScore = 0, draw = 0;
+
+    for(let i = 0; i < 5; i++) {
+        
+        userInput = prompt("Choose Rock, Paper, or Scissors.");
+        computerInput = getComputerChoice();
+        console.log(playRound(userInput, computerInput));
+        
+        switch (score(userInput, computerInput)) {
+            case "Win":
+                userScore++;
+                break;
+            case "Lose":
+                computerScore++;
+                break;
+            case "Draw":
+                draw++;
+                break;
+            default:
+                break;                    
+        }
+    }
+
+    return `You won ${userScore} games.\nYou lost ${computerScore} games.\nThere were ${draw} draws.`
+}
+
+console.log(game());

@@ -14,6 +14,11 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
+    // Tests if user put a valid entry
+    // if (playerSelection.toUpperCase() != ROCKPAPERSCISSORS[0] || playerSelection.toUpperCase() != ROCKPAPERSCISSORS[1] || playerSelection.toUpperCase() != ROCKPAPERSCISSORS[2]) {
+    //     return `Your entry, ${playerSelection}, is invalid! Please enter Rock, Paper, or Scissors`;
+    // }
+
     playerSelection = playerSelection.toUpperCase();
     computerSelection = computerSelection.toUpperCase();
 
@@ -29,29 +34,29 @@ function playRound(playerSelection, computerSelection) {
     else if (playerSelection ===  ROCKPAPERSCISSORS[2] && computerSelection === ROCKPAPERSCISSORS[2]) {
         return `Both players chose ${ROCKPAPERSCISSORS[2]}, it's a tie!`;
     }
-    //user is scissor, and computer is paper
+    //user is scissors, and computer is paper
     else if (playerSelection ===  ROCKPAPERSCISSORS[2] && computerSelection === ROCKPAPERSCISSORS[1]) {
         return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[1]}. You win!`;
     }
     //user is paper, and computer is rock
     else if (playerSelection ===  ROCKPAPERSCISSORS[1] && computerSelection === ROCKPAPERSCISSORS[0]) {
-        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You win!`;
+        return `You chose ${ROCKPAPERSCISSORS[1]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You win!`;
     }
-    //user is rock and computer is scissor
+    //user is rock and computer is scissors
     else if (playerSelection ===  ROCKPAPERSCISSORS[0] && computerSelection === ROCKPAPERSCISSORS[2]) {
-        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[2]}. You win!`;
+        return `You chose ${ROCKPAPERSCISSORS[0]}, and the computer chose ${ROCKPAPERSCISSORS[2]}. You win!`;
     }
-    //computer is scissor and user is paper
+    //user is paper and computer is scissors
     else if (playerSelection ===  ROCKPAPERSCISSORS[1] && computerSelection === ROCKPAPERSCISSORS[2]) {
-        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You win!`;
+        return `You chose ${ROCKPAPERSCISSORS[1]}, and the computer chose ${ROCKPAPERSCISSORS[2]}. You lose!`;
     }
-    //computer is paper, and user is rock
+    //user is rock and computer is paper
     else if (playerSelection ===  ROCKPAPERSCISSORS[0] && computerSelection === ROCKPAPERSCISSORS[1]) {
-        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You win!`;
+        return `You chose ${ROCKPAPERSCISSORS[0]}, and the computer chose ${ROCKPAPERSCISSORS[1]}. You lose!`;
     }
-    //computer is rock and user is scissor
+    //user is scissors and computer is rock
     else {
-        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You win!`;
+        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You lose!`;
     }
 }
 
@@ -59,6 +64,4 @@ function game () {
 
 }
 
-console.log(getComputerChoice());
-
-console.log(playRound("Rock", getComputerChoice()));
+console.log(playRound("Scissors", getComputerChoice()));

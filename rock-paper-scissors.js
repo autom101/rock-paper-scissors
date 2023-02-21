@@ -1,66 +1,22 @@
 const ROCKPAPERSCISSORS = [`ROCK`, `PAPER`, `SCISSORS`];
 
+let userScore = 0, computerScore = 0, draw = 0, gamesPlayed = 0;
+
+//Return Rock, Paper, or Scissors randomly
 function getComputerChoice() {
-    //Return Rock, Paper, or Scissors randomly
     let computerNumber;
     computerNumber = Math.random()*1000;
     if (computerNumber <= 333) {
-        return `Rock`;
+        return `ROCK`;
     }
     else if (computerNumber <= 667) {
-        return `Paper`;
+        return `PAPER`;
     }
-    return `Scissors`;
+    return `SCISSORS`;
 }
 
-function playRound(playerSelection, computerSelection) {
-    // Tests if user put a valid entry
-    // if (playerSelection.toUpperCase() != ROCKPAPERSCISSORS[0] || playerSelection.toUpperCase() != ROCKPAPERSCISSORS[1] || playerSelection.toUpperCase() != ROCKPAPERSCISSORS[2]) {
-    //     return `Your entry, ${playerSelection}, is invalid! Please enter Rock, Paper, or Scissors`;
-    // }
-
-    playerSelection = playerSelection.toUpperCase();
-    computerSelection = computerSelection.toUpperCase();
-
-    //both are rock
-    if (playerSelection ===  ROCKPAPERSCISSORS[0] && computerSelection === ROCKPAPERSCISSORS[0]) {
-        return `Both players chose ${ROCKPAPERSCISSORS[0]}, it's a tie!`;
-    }
-    //both are paper
-    else if (playerSelection ===  ROCKPAPERSCISSORS[1] && computerSelection === ROCKPAPERSCISSORS[1]) {
-        return `Both players chose ${ROCKPAPERSCISSORS[1]}, it's a tie!`;
-    }
-    //both are scissors
-    else if (playerSelection ===  ROCKPAPERSCISSORS[2] && computerSelection === ROCKPAPERSCISSORS[2]) {
-        return `Both players chose ${ROCKPAPERSCISSORS[2]}, it's a tie!`;
-    }
-    //user is scissors, and computer is paper
-    else if (playerSelection ===  ROCKPAPERSCISSORS[2] && computerSelection === ROCKPAPERSCISSORS[1]) {
-        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[1]}. You win!`;
-    }
-    //user is paper, and computer is rock
-    else if (playerSelection ===  ROCKPAPERSCISSORS[1] && computerSelection === ROCKPAPERSCISSORS[0]) {
-        return `You chose ${ROCKPAPERSCISSORS[1]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You win!`;
-    }
-    //user is rock and computer is scissors
-    else if (playerSelection ===  ROCKPAPERSCISSORS[0] && computerSelection === ROCKPAPERSCISSORS[2]) {
-        return `You chose ${ROCKPAPERSCISSORS[0]}, and the computer chose ${ROCKPAPERSCISSORS[2]}. You win!`;
-    }
-    //user is paper and computer is scissors
-    else if (playerSelection ===  ROCKPAPERSCISSORS[1] && computerSelection === ROCKPAPERSCISSORS[2]) {
-        return `You chose ${ROCKPAPERSCISSORS[1]}, and the computer chose ${ROCKPAPERSCISSORS[2]}. You lose!`;
-    }
-    //user is rock and computer is paper
-    else if (playerSelection ===  ROCKPAPERSCISSORS[0] && computerSelection === ROCKPAPERSCISSORS[1]) {
-        return `You chose ${ROCKPAPERSCISSORS[0]}, and the computer chose ${ROCKPAPERSCISSORS[1]}. You lose!`;
-    }
-    //user is scissors and computer is rock
-    else {
-        return `You chose ${ROCKPAPERSCISSORS[2]}, and the computer chose ${ROCKPAPERSCISSORS[0]}. You lose!`;
-    }
-}
-
-function score(playerSelection, computerSelection) {
+//Checks who won each game and returns a value of win, lose, or draw accordingly
+function checkWinner(playerSelection, computerSelection) {
     switch (playerSelection) {
         case "ROCK":
             if (computerSelection === ROCKPAPERSCISSORS[0]) {
@@ -97,28 +53,52 @@ function score(playerSelection, computerSelection) {
     }
 }
 
-function game(itemChoice) {
-    let userInput, computerInput, userScore = 0, computerScore = 0, draw = 0;
-        
-        userInput = itemChoice.toUpperCase;
+// Asks the checkWinner function about who won and returns the current state of the game
+function clickButton(choice) {
+    let userChoice, computerChoice, state;
 
-        computerInput = getComputerChoice();
-        console.log(playRound(itemChoice, computerInput));
-        
-        switch (score(userInput, computerInput)) {
-            case `Win`:
-                userScore++;
-                break;
-            case `Lose`:
-                computerScore++;
-                break;
-            case `Draw`:
-                draw++;
-                break;
-            default:
-                break;                    
+    userChoice = choice.toUpperCase();
+    computerChoice = getComputerChoice();
+    state = checkWinner(userChoice, computerChoice);
+
+    switch (state) {
+        case `Win`:
+            userScore++;
+            break;
+        case `Lose`:
+            computerScore++;
+            break;
+        case `Draw`:
+            draw++;
+            break;                  
+    }
+    results.textContent = `So far, you have won ${userScore} games.\nYou have lost ${computerScore} games.\nThere have been ${draw} draws.`;  
+}
+
+// Increments game count and resets the game whenever the user plays 5 times
+function trackGameplay() {
+    gamesPlayed++;
+
+    if (gamesPlayed % 5 === 0 && gamesPlayed > 0) {
+        if (userScore > computerScore) {
+            results.textContent = `You WON!!!`;
+            userScore = 0;
+            computerScore = 0;
+            draw = 0;
         }
-    return `You won ${userScore} games.\nYou lost ${computerScore} games.\nThere were ${draw} draws.`;
+        else if (userScore < computerScore) {
+            results.textContent = `Unfortunaly you lost :(`;
+            userScore = 0;
+            computerScore = 0;
+            draw = 0;
+        }
+        else {
+            results.textContent = `It's a draw. We'll get 'em next time.`;
+            userScore = 0;
+            computerScore = 0;
+            draw = 0;
+        }
+    };
 }
 
 const rock = document.querySelector(`#rock`);
@@ -127,12 +107,28 @@ const scissors = document.querySelector(`#scissors`);
 
 const results = document.querySelector(`.results-container`);
 
-function clickButton(choice) {
-    game(choice);
-    
-}
+// EventListeners for whenever the user clicks the buttons
+rock.addEventListener('click', () => {
+        clickButton('rock'); 
+        trackGameplay();
+    }, 
+    {
+        capture: false,
+        once: false
+    })
 
+paper.addEventListener('click', () => {
+        clickButton('paper');
+        trackGameplay();},
+    {
+        capture: false, 
+        once: false
+    })
 
-rock.addEventListener('click', () => {game('rock');}, {once: true});
-paper.addEventListener('click', () => {game('paper');}, {once: true});
-scissors.addEventListener('click', () => {game('scissors');}, {once: true});
+scissors.addEventListener('click', () => {
+        clickButton('scissors'); 
+        trackGameplay();},
+    {
+        capture: false,
+        once: false
+    })

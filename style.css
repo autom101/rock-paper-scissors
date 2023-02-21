@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: slategray;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    gap: 10px;
+}
+
+.button {
+    border-style: solid;
+    border-width: 5px;
+    border-color: whitesmoke;
+    border-radius: 20px;
+    background-color: burlywood;
+
+    font-weight: bold;
+    font-size: 36px;
+    color: white;
+
+    flex: 1;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+
+    margin: 20px;
+
+    transition: all 0.3s ease; 
+}
+
+.button:hover {
+    scale: 1.05;
+    border-style: solid;
+    border-width: 5px;
+    border-color: whitesmoke;
+    border-radius: 20px;
+}
+
+.button:click {
+    border-color: red;
+}
+

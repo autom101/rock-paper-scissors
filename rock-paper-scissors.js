@@ -1,16 +1,16 @@
-const ROCKPAPERSCISSORS = ["ROCK", "PAPER", "SCISSORS"];
+const ROCKPAPERSCISSORS = [`ROCK`, `PAPER`, `SCISSORS`];
 
 function getComputerChoice() {
     //Return Rock, Paper, or Scissors randomly
     let computerNumber;
     computerNumber = Math.random()*1000;
     if (computerNumber <= 333) {
-        return "Rock";
+        return `Rock`;
     }
     else if (computerNumber <= 667) {
-        return "Paper";
+        return `Paper`;
     }
-    return "Scissors";
+    return `Scissors`;
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -61,9 +61,6 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function score(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toUpperCase();
-    computerSelection = computerSelection.toUpperCase();
-
     switch (playerSelection) {
         case "ROCK":
             if (computerSelection === ROCKPAPERSCISSORS[0]) {
@@ -100,31 +97,42 @@ function score(playerSelection, computerSelection) {
     }
 }
 
-function game() {
+function game(itemChoice) {
     let userInput, computerInput, userScore = 0, computerScore = 0, draw = 0;
-
-    for(let i = 0; i < 1; i++) {
         
-        userInput = prompt("Choose Rock, Paper, or Scissors.");
+        userInput = itemChoice.toUpperCase;
+
         computerInput = getComputerChoice();
-        console.log(playRound(userInput, computerInput));
+        console.log(playRound(itemChoice, computerInput));
         
         switch (score(userInput, computerInput)) {
-            case "Win":
+            case `Win`:
                 userScore++;
                 break;
-            case "Lose":
+            case `Lose`:
                 computerScore++;
                 break;
-            case "Draw":
+            case `Draw`:
                 draw++;
                 break;
             default:
                 break;                    
         }
-    }
-
-    return `You won ${userScore} games.\nYou lost ${computerScore} games.\nThere were ${draw} draws.`
+    return `You won ${userScore} games.\nYou lost ${computerScore} games.\nThere were ${draw} draws.`;
 }
 
-console.log(game());
+const rock = document.querySelector(`#rock`);
+const paper = document.querySelector(`#paper`);
+const scissors = document.querySelector(`#scissors`);
+
+const results = document.querySelector(`.results-container`);
+
+function clickButton(choice) {
+    game(choice);
+    
+}
+
+
+rock.addEventListener('click', () => {game('rock');}, {once: true});
+paper.addEventListener('click', () => {game('paper');}, {once: true});
+scissors.addEventListener('click', () => {game('scissors');}, {once: true});

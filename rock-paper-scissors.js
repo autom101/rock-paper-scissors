@@ -1,5 +1,3 @@
-"Use Strict"
-
 const ROCKPAPERSCISSORS = ["ROCK", "PAPER", "SCISSORS"];
 
 function getComputerChoice() {
@@ -105,7 +103,7 @@ function score(playerSelection, computerSelection) {
 function game() {
     let userInput, computerInput, userScore = 0, computerScore = 0, draw = 0;
 
-    for(let i = 0; i < 5; i++) {
+    for(let i = 0; i < 1; i++) {
         
         userInput = prompt("Choose Rock, Paper, or Scissors.");
         computerInput = getComputerChoice();
